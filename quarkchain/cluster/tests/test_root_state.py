@@ -116,6 +116,14 @@ class TestRootState(unittest.TestCase):
         with self.assertRaisesRegexp(ValueError, "shard id must be ordered"):
             r_state.add_block(root_block_with_incorrect_mlist2)
 
+    def test_blocks_with_incorrect_coinbase_address(self):
+        env = get_test_env()
+        r_state, s_states = create_default_state(env)
+        root_block = r_state.create_block_to_mine([])
+        root_block.header.coinbase_address.full_shard_key = 0xABCD1234
+        with self.assertRaisesRegexp(ValueError, "coinbase address full shard key must in existing shards"):
+            r_state.add_block(root_block)
+
     def test_root_state_and_shard_state_add_block(self):
         env = get_test_env()
         r_state, s_states = create_default_state(env)

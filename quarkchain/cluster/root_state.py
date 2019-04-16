@@ -499,6 +499,18 @@ class RootState:
         full_shard_ids_to_check_proof_of_progress = self.env.quark_chain_config.get_initialized_full_shard_ids_before_root_height(
             block.header.height
         )
+
+        # Check if the address is valid
+        if not self.env.quark_chain_config.has_full_shard_id(block.header.coinbase_address.full_shard_key):
+            raise ValueError("coinbase address full shard key must in existing shards")
+
+        coinbase_full_shard_id = self.env.quark_chain_config.get_full_shard_id_by_full_shard_key(
+            block.header.coinbase_address.full_shard_key
+        )
+        if coinbase_full_shard_id not in full_shard_ids_to_check_proof_of_progress:
+            raise ValueError("coinbase address full shard key must in existing shards")
+
+        # Check the headers
         for full_shard_id, headers in headers_map.items():
             check(len(headers) > 0)
 

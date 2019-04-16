@@ -381,6 +381,10 @@ class QuarkChainConfig(BaseConfig):
     def gas_limit(self):
         return ShardGenesis.GAS_LIMIT
 
+    def has_full_shard_id(self, full_shard_key: int) -> bool:
+        chain_id = full_shard_key >> 16
+        return chain_id < len(self._chain_id_to_shard_size)
+
     def get_full_shard_id_by_full_shard_key(self, full_shard_key: int) -> int:
         chain_id = full_shard_key >> 16
         shard_size = self.get_shard_size_by_chain_id(chain_id)
