@@ -404,7 +404,7 @@
   "P2P": {
     "NEW_MODULE": true,
     "MAX_PEERS": 30,
-    "PRIV_KEY": "",
+    "BOOT_NODES": "enode://9e0cec489966c30bf7ef45170239beac4d2c4bba1c5aa9582bafbd02afb8c19f37d6e4a953e3a43404dbbcc99cad96ab877b5f071af533fb4b2aeccf7a44c016@34.83.180.169:38291",
     "UPNP": true
   },
   "MONITORING": {
